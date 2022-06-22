@@ -1,5 +1,5 @@
 # Deno Image Rotator
-This script rotates all images in a directory by a specified amount using [Deno](https://deno.land/) and [imagescript](https://deno.land/x/imagescript@v1.2.13).
+This script rotates all images in a directory and all sub-directories by a specified amount using [Deno](https://deno.land/) and [imagescript](https://deno.land/x/imagescript@v1.2.13).
 
 ## Prerequisites
 Ensure [Deno](https://deno.land/manual/getting_started/installation) is installed.
