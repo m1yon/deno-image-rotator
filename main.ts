@@ -28,9 +28,14 @@ const rotateImages = async (directory: string, rotation: number) => {
     }
 
     const fileContent = await Deno.readFile(`${directory}/${file.name}`)
-    const originalImage = (await imagescript.decode(
-      fileContent,
-    )) as imagescript.Image
+    const originalImage = (await imagescript.decode(fileContent).catch(e => {
+      console.log(`Error decoding file "${file.name}": ${e}`)
+      return null
+    })) as imagescript.Image | null
+
+    if (!originalImage) {
+      continue
+    }
 
     const rotatedImage = originalImage.rotate(rotation)
     await Deno.writeFile(
