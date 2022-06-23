@@ -1,7 +1,11 @@
 import { imagescript } from './deps.ts'
 
+const imageFileExtensions = ['.jpg', '.jpeg', '.png']
+
 const rotateImages = async (directory: string, rotation: number) => {
   for await (const file of Deno.readDir(directory)) {
+    console.log('file', file)
+
     if (file.isDirectory) {
       await rotateImages(`${directory}/${file.name}`, rotation)
       continue
@@ -9,6 +13,17 @@ const rotateImages = async (directory: string, rotation: number) => {
 
     if (!file.isFile) {
       console.log(file.name, 'is not a file, skipping...')
+      continue
+    }
+
+    const isSupportedFileExtension = imageFileExtensions.some(extension =>
+      file.name.endsWith(extension),
+    )
+
+    if (!isSupportedFileExtension) {
+      console.log(
+        `File extension not supported for file "${file.name}" skipping...`,
+      )
       continue
     }
 
