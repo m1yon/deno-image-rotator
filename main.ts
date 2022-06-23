@@ -4,8 +4,6 @@ const imageFileExtensions = ['.jpg', '.jpeg', '.png']
 
 const rotateImages = async (directory: string, rotation: number) => {
   for await (const file of Deno.readDir(directory)) {
-    console.log('file', file)
-
     if (file.isDirectory) {
       await rotateImages(`${directory}/${file.name}`, rotation)
       continue
